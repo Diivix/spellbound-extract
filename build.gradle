@@ -1,0 +1,25 @@
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.palantir.git-version' version '0.4.0'
+}
+
+sourceCompatibility = 1.8
+group 'com.orange.lightning'
+version gitVersion()
+mainClassName = "com.ornage.lightning.Extract"
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
+    compile group: 'com.google.guava', name: 'guava', version: '23.5-jre'
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'org.apache.commons:commons-text:1.1'
+    compile 'org.immutables:value:2.6.3'
+}
