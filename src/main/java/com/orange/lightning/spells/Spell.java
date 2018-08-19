@@ -31,6 +31,8 @@ public abstract class Spell implements DdObject {
 
     protected abstract String atHigherLevels();
 
+    protected  abstract String reference();
+
     @Value.Check
     protected void check() {
         // Check for empty values
@@ -43,10 +45,13 @@ public abstract class Spell implements DdObject {
         Preconditions.checkState(!duration().isEmpty(), "'duration' cannot be empty");
         Preconditions.checkState(!description().isEmpty(), "'description' cannot be empty");
 
+        Preconditions.checkState(reference().startsWith("Page"),
+                "'reference' should begin with 'Page'. Found: " + reference());
+
         // Check for wrong information
-        Preconditions.checkState(!description().matches("^Page\\:.*"),
+        Preconditions.checkState(!description().startsWith("Page"),
                 "'description' has wrong information.");
-        Preconditions.checkState(!atHigherLevels().matches("^Page\\:.*"),
+        Preconditions.checkState(!atHigherLevels().matches("Page"),
                 "'atHigherLevels' has wrong information.");
 
         // Check level
