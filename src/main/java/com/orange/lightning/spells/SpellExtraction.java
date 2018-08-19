@@ -123,6 +123,13 @@ public abstract class SpellExtraction implements Extraction {
                 components[0] = "V";
             }
 
+            // Specific spell cases
+            if(name.equalsIgnoreCase("clone")) {
+                description = content.select("div").get(5).text();
+                classTypes = content.select("p").get(6).select("a").text();
+                atHigherLevels = "";
+            }
+
             return ImmutableSpell.builder()
                     .id(id)
                     .name(name)
