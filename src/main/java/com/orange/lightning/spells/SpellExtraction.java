@@ -72,24 +72,29 @@ public abstract class SpellExtraction implements Extraction {
 
             // At Higher Levels and Classes
             String atHigherLevels = "";
+            String reference = "";
             String classTypes = "";
             if (content.select("h4").size() == 1) {
                 // Doesn't contain a "at higher level".
+                reference = content.select("p").get(4).text();
                 classTypes = content.select("p").get(5).select("a").text();
             } else if (content.select("h4").size() == 2) {
                 atHigherLevels = content.select("p").get(4).text();
+                reference = content.select("p").get(5).text();
                 classTypes = content.select("p").get(6).select("a").text();
             }
 
             // Edge case, "at higher level" and "classes" found in slight different spot.
             if (classTypes.equals("")) {
                 atHigherLevels = content.select("p").get(5).text();
+                reference = content.select("p").get(6).text();
                 classTypes = content.select("p").get(7).select("a").text();
             }
 
             // Second edge case, classTypes is still empty
             if (classTypes.equals("")) {
                 atHigherLevels = content.select("p").get(7).text();
+                reference = content.select("p").get(8).text();
                 classTypes = content.select("p").get(9).select("a").text();
             }
 
@@ -126,6 +131,7 @@ public abstract class SpellExtraction implements Extraction {
             // Specific spell cases
             if(name.equalsIgnoreCase("clone")) {
                 description = content.select("div").get(5).text();
+                reference = content.select("p").get(5).text();
                 classTypes = content.select("p").get(6).select("a").text();
                 atHigherLevels = "";
             }
@@ -143,6 +149,7 @@ public abstract class SpellExtraction implements Extraction {
                     .materials(materials)
                     .classTypes(ImmutableList.copyOf(classTypes.split(" ")))
                     .components(ImmutableList.copyOf(components))
+                    .reference(reference)
                     .build();
 
         } catch (Exception e) {
