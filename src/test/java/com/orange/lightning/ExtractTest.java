@@ -10,7 +10,7 @@ import org.junit.Test;
 public class ExtractTest {
     @Test
     public void extractSpell() {
-        String url = "https://www.dnd-spells.com/spell/negative-energy-flood";
+        String url = "https://www.dnd-spells.com/spell/clone";
         String outFilePath = "build/tmp/spells.json";
 
         SpellExtraction extraction = ImmutableSpellExtraction.builder().parentUrl(url).build();
